@@ -1,34 +1,28 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace KazMongoDB.Core
 {
-    public interface IMongoDocument<T>
+    public interface IMongoDocument<T1>
     {
-        [BsonIgnore]
-        T Id { get; set; }
+        T1 Id { get; set; }
     }
-
     public interface IMongoDocument<T1, T2> : IMongoDocument<T1> where T2 : IMongoDocument<T1>
     {
-        [BsonIgnore]
-        static IMongoCollection<T2> collection { get; set; }
-        [BsonIgnore]
-        IMongoCollection<T2> Collection { get { return collection; } }
+        static IMongoCollection<T2> MongoCollection;
+        IMongoCollection<T2> Collection { get => MongoCollection; }
+        IMongoDocument<T1, T2> Database { get; }
 
         void Insert()
         {
-            collection.InsertOne((T2)this);
+            Collection.InsertOne((T2)this);
         }
         void Update()
         {
-            //collection.ReplaceOne(x => x.Id == Id, (T2)this);
-            collection.ReplaceOne(Builders<T2>.Filter.Eq(x => x.Id, Id), (T2)this);
+            Collection.ReplaceOne(Builders<T2>.Filter.Eq(x => x.Id, Id), (T2)this);
         }
         void Delete()
         {
-            //collection.DeleteOne(x => (x.Id == Id));
-            collection.DeleteOne(Builders<T2>.Filter.Eq(x => x.Id, Id));
+            Collection.DeleteOne(Builders<T2>.Filter.Eq(x => x.Id, Id));
         }
     }
 }
