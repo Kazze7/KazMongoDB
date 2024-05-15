@@ -18,6 +18,7 @@ namespace KazMongoDB.Core
             account.Database.Insert();
             account.name = "New user";
             account.Database.Update();
+            account = IMongoDocument<ulong, Account>.SelectOneById(1);
             account.Database.Delete();
 
             Console.ReadLine();

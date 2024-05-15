@@ -12,6 +12,22 @@ namespace KazMongoDB.Core
         IMongoCollection<T2> Collection { get => MongoCollection; }
         IMongoDocument<T1, T2> Database { get; }
 
+        static T2 SelectOne(FilterDefinition<T2> _filter)
+        {
+            return MongoCollection.Find(_filter).FirstOrDefault();
+        }
+        static T2 SelectOneById(T1 _id)
+        {
+            return MongoCollection.Find(Builders<T2>.Filter.Eq(x => x.Id, _id)).FirstOrDefault();
+        }
+        static List<T2> SelectMany(FilterDefinition<T2> _filter)
+        {
+            return MongoCollection.Find(_filter).ToList();
+        }
+        static List<T2> SelectAll()
+        {
+            return MongoCollection.Find(Builders<T2>.Filter.Empty).ToList();
+        }
         void Insert()
         {
             Collection.InsertOne((T2)this);
