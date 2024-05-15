@@ -3,7 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{6A865251-816F-4E1D-92D0-3F80ACA2935B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D10E6DCC-3D34-4196-8A6C-C3772D1D4DCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zTest", "Test\zTest.csproj", "{BFFC2D70-AA27-4FBF-8AF0-EF813832C64A}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D10E6DCC-3D34-4196-8A6C-C3772D1D4DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10E6DCC-3D34-4196-8A6C-C3772D1D4DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10E6DCC-3D34-4196-8A6C-C3772D1D4DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10E6DCC-3D34-4196-8A6C-C3772D1D4DCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFFC2D70-AA27-4FBF-8AF0-EF813832C64A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFFC2D70-AA27-4FBF-8AF0-EF813832C64A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFFC2D70-AA27-4FBF-8AF0-EF813832C64A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFFC2D70-AA27-4FBF-8AF0-EF813832C64A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
