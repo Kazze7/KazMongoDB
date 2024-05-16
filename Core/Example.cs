@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace KazMongoDB.Core
 {
@@ -13,13 +12,19 @@ namespace KazMongoDB.Core
             //  custom interface
             IMongoDocument<Account>.Collection = mongoDatabase.GetCollection<Account>("Account");
 
-            Account account = new Account();
-            account.Id = 1;
-            account.Database.Insert();
-            account.name = "New user";
-            account.Database.Update();
-            account = IMongoDocument<Account>.SelectOne(x => x.Id == 1);
-            account.Database.Delete();
+            Account account1 = new Account();
+            account1.Id = 1;
+            account1.Database.Insert();
+            account1.name = "New user";
+            account1.Database.Update();
+
+            Account account2 = new Account();
+            account2.Id = 2;
+            account2.friends.Add(new MongoLink<ulong, Account>(account1));
+            account2.Database.Insert();
+            account1 = IMongoDocument<Account>.Collection.Find(x => x.Id == 1).FirstOrDefault();
+            account1.Database.Delete(); 
+            account2.Database.Delete();
 
             Console.ReadLine();
         }
@@ -29,8 +34,8 @@ namespace KazMongoDB.Core
         public IMongoDocument<ulong, Account> Database => this;
         public ulong Id { get => id; set => id = value; }
 
-        [BsonIgnore]
         private ulong id;
         public string name = "User";
+        public List<MongoLink<ulong, Account>> friends = new List<MongoLink<ulong, Account>>();
     }
 }
