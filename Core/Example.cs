@@ -11,14 +11,14 @@ namespace KazMongoDB.Core
             IMongoDatabase mongoDatabase = mongoClient.GetDatabase("Auth");
             
             //  custom interface
-            IMongoDocument<ulong, Account>.MongoCollection = mongoDatabase.GetCollection<Account>("Account");
+            IMongoDocument<Account>.Collection = mongoDatabase.GetCollection<Account>("Account");
 
             Account account = new Account();
-            account.id = 1;
+            account.Id = 1;
             account.Database.Insert();
             account.name = "New user";
             account.Database.Update();
-            account = IMongoDocument<ulong, Account>.SelectOneById(1);
+            account = IMongoDocument<Account>.SelectOne(x => x.Id == 1);
             account.Database.Delete();
 
             Console.ReadLine();
@@ -26,11 +26,11 @@ namespace KazMongoDB.Core
     }
     internal class Account : IMongoDocument<ulong, Account>
     {
-        public IMongoDocument<ulong, Account> Database { get => this; }
+        public IMongoDocument<ulong, Account> Database => this;
         public ulong Id { get => id; set => id = value; }
 
         [BsonIgnore]
-        public ulong id;
+        private ulong id;
         public string name = "User";
     }
 }
