@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace KazMongoDB.Core
 {
-    public abstract class MongoDocument<T1, T2>  where T2 : MongoDocument<T1, T2>
+    public abstract class MongoDocument<T1, T2> : IMongoDocument<T2> where T2 : MongoDocument<T1, T2>
     {
         [BsonIgnore] public static IMongoCollection<T2> Collection { get { return IMongoDocument<T2>.Collection; } }
         [BsonId] public T1 Id { get; set; }
