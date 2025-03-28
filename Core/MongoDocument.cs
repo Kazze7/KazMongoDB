@@ -20,5 +20,13 @@ namespace KazMongoDB.Core
         {
             Collection.DeleteOne(Builders<T2>.Filter.Eq(x => x.Id, Id));
         }
+        public static List<T2> SelectAll()
+        {
+            return Collection.Find(Builders<T2>.Filter.Empty).ToList();
+        }
+        public static T2 SelectByID(T1 _id)
+        {
+            return Collection.Find(x => x.Id.Equals(_id)).FirstOrDefault();
+        }
     }
 }
