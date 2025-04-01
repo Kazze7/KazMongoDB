@@ -5,16 +5,14 @@ namespace KazMongoDB.Core
     public class MongoConnection
     {
         MongoClient mongoClient;
-        IMongoDatabase database;
 
-        public MongoConnection(string _connectionString, string _databaseName)
+        public MongoConnection(string _connectionString)
         {
             mongoClient = new MongoClient(_connectionString);
-            database = mongoClient.GetDatabase(_databaseName);
         }
-        public void SetCollection<T>(string _collectionName) where T : IMongoDocument<T>
+        public void SetCollection<T>(string _collectionName, string _databaseName) where T : IMongoDocument<T>
         {
-            IMongoDocument<T>.Collection = database.GetCollection<T>(_collectionName);
+            IMongoDocument<T>.Collection = mongoClient.GetDatabase(_databaseName).GetCollection<T>(_collectionName);
         }
         public void SetIndex<T>(IndexKeysDefinition<T> _keys) where T : IMongoDocument<T>
         {
